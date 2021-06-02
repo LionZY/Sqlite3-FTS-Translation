@@ -63,6 +63,7 @@
 &emsp;谷歌的Scott Hess将最初的FTS3代码的一部分贡献给SQLite项目。
 
 &emsp;它现在作为SQLite的一部分进行开发和维护。
+
 ---
 
 1. 介绍FTS3和FTS4
