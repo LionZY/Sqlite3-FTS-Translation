@@ -124,4 +124,33 @@ FTS4是FTS3的改进。FTS3从SQLite版本3.5.0(2007-09-04)开始可以使用。
 
 1.2 创建和销毁FTS表
 
+和其他虚拟表一样，使用CREATE VIRTUAL TABLE语句创建FTS虚拟表。
+
+USING关键字后面跟 "fts3"或"fts4"
+
+虚拟表模块参数可以保留为空，在这种情况下，将创建一个名为“content”自定义列的FTS表。
+
+或者，模块参数可以传递一个逗号分隔的列名列表。
+
+如果在CREATE VIRTUAL TABLE语句中显式地为FTS表提供了列名，那么可以为每个列指定数据类型名。
+
+这是纯粹的语法糖，FTS或SQLite核心不会出于任何目的使用所提供的类型名。
+
+这同样适用于与FTS列名一起指定的任何约束——系统会解析它们，但不会以任何方式使用或记录它们。
+
+	-- 创建一个没有列的data FPS表将创建一个默认的content列- "content":
+	CREATE VIRTUAL TABLE data USING fts3();
+
+	-- 创建一个名为pages的FTS表，自定义三个列:
+	CREATE VIRTUAL TABLE pages USING fts4(title, keywords, body);
+
+	-- 创建一个mail FTS表.
+	-- 数据类型和列约束是随每列一起指定的。
+	-- FTS和SQLite完全忽略了这些。
+	CREATE VIRTUAL TABLE mail USING fts3(
+  		subject VARCHAR(256) NOT NULL,
+  		body TEXT CHECK(length(body)<10240)
+	);
+
+
 (未完待续…..)
